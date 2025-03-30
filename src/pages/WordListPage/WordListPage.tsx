@@ -1,5 +1,5 @@
-import { Link } from "react-router";
-import { Toolbar } from "../../components";
+import { Toolbar, WordList } from "../../components";
+import { wordList } from "../../mock";
 import styles from './WordListPage.module.scss';
 
 const WordListPage = () => {
@@ -12,7 +12,7 @@ const WordListPage = () => {
       <Toolbar onSearch={onSearch} onSort={onSort} onAdd={onAdd} />
 
       <div className={styles['word-list-page__container']}>
-        <Link to='/word/123'>To Word Page</Link>
+        <WordList words={wordList} />
       </div>
     </>
   );

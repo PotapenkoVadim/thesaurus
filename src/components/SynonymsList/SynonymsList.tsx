@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Word } from '../../interfaces';
+import EmptyText from '../EmptyText/EmptyText';
 import styles from './SynonymsList.module.scss';
 
 const SynonymsList = ({
@@ -25,9 +26,7 @@ const SynonymsList = ({
             {item.word}
           </Link>
         )) : (
-          <div className={styles['synonyms-list__empty']}>
-            Вы не добавили этому слову синонимы.
-          </div>
+          <EmptyText text='Вы еще не указали синонимы для этого слова.' className={styles['synonyms-list__empty']} />
         )}
       </div>
     </div>

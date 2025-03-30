@@ -19,3 +19,36 @@ export const synonymsList = [
     word: 'Hello World',
   },
 ];
+
+export const wordList = [
+  {
+    id: 1,
+    word: 'Автобус',
+    description: 'Hello World',
+  },
+  {
+    id: 2,
+    word: 'Словарь',
+    description: 'Hello World',
+  },
+  {
+    id: 3,
+    word: 'Слово',
+    description: 'Hello World',
+  },
+  {
+    id: 4,
+    word: 'Hello World',
+    description: 'Hello World',
+  },
+  {
+    id: 5,
+    word: 'Автомобиль',
+    description: 'Hello World',
+  },
+  {
+    id: 6,
+    word: 'Абрикос',
+    description: 'Hello World',
+  },
+];
