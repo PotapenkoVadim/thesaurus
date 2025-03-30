@@ -1,0 +1,37 @@
+.synonyms-list {
+  &__title {
+    font-size: 1.24rem;
+    font-weight: 600;
+  }
+
+  &__empty {
+    font-size: .84rem;
+    font-weight: 400;
+    color: #9a9a9a;
+    margin-top: 4px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  &__item {
+    color: var(--text-color);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: var(--text-color);
+    }
+  }
+}
