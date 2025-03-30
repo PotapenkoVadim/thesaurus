@@ -1,0 +1,12 @@
+.word-container {
+  &__word {
+    font-size: 1.24rem;
+    font-weight: 600;
+  }
+
+  &__description {
+    font-size: .92rem;
+    font-weight: 400;
+    margin-top: 14px;
+  }
+}
