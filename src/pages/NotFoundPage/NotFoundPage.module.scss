@@ -1,0 +1,12 @@
+.notfound {
+  margin-top: 24px;
+
+  &__description {
+    margin-bottom: 6px;
+  }
+
+  &__link {
+    font-size: 1.2rem;
+    color: var(--text-color);
+  }
+}
