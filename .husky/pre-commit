@@ -1,0 +1,12 @@
+#!/bin/sh
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "main" ]; then
+  echo "Main Branch commit is blocked"
+  exit 1
+fi
+
+npm run prettier
+npm run lint
+npm run stylelint
