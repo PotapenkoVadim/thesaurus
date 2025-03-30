@@ -7,3 +7,5 @@ export {default as WordContainer} from './WordContainer/WordContainer';
 export {default as SynonymsList} from './SynonymsList/SynonymsList';
 export {default as Toolbar} from './Toolbar/Toolbar';
 export {default as AddButton} from './AddButton/AddButton';
+export {default as WordList} from './WordList/WordList';
+export {default as EmptyText} from './EmptyText/EmptyText';
