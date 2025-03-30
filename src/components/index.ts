@@ -5,3 +5,5 @@ export {default as BackButton} from './BackButton/BackButton';
 export {default as IconButton} from './IconButton/IconButton';
 export {default as WordContainer} from './WordContainer/WordContainer';
 export {default as SynonymsList} from './SynonymsList/SynonymsList';
+export {default as Toolbar} from './Toolbar/Toolbar';
+export {default as AddButton} from './AddButton/AddButton';
