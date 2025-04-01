@@ -9,3 +9,5 @@ export {default as Toolbar} from './Toolbar/Toolbar';
 export {default as AddButton} from './AddButton/AddButton';
 export {default as WordList} from './WordList/WordList';
 export {default as EmptyText} from './EmptyText/EmptyText';
+export {default as BottomSheet} from './BottomSheet/BottomSheet';
+export {default as Portal} from './Portal/Portal';

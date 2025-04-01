@@ -7,7 +7,8 @@
     "selector-class-pattern": null,
     "no-duplicate-selectors": null,
     "no-descending-specificity": null,
-    "unit-allowed-list": ["%", "deg", "rem", "px", "vh", "ms", "s", "dvh"]
+    "unit-allowed-list": ["%", "deg", "rem", "px", "vh", "ms", "s", "dvh", "fr"],
+    "selector-pseudo-class-no-unknown": null
   },
   "defaultSeverity": "warning"
 }

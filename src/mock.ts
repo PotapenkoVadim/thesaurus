@@ -51,4 +51,55 @@ export const wordList = [
     word: 'Абрикос',
     description: 'Hello World',
   },
+
+  {
+    id: 1,
+    word: 'БАвтобус',
+    description: 'Hello World',
+  },
+  {
+    id: 2,
+    word: 'вСловарь',
+    description: 'Hello World',
+  },
+  {
+    id: 3,
+    word: 'ГСлово',
+    description: 'Hello World',
+  },
+  {
+    id: 4,
+    word: 'дHello World',
+    description: 'Hello World',
+  },
+  {
+    id: 5,
+    word: 'ЕАвтомобиль',
+    description: 'Hello World',
+  },
+  {
+    id: 6,
+    word: 'ЁАбрикос',
+    description: 'Hello World',
+  },
+  {
+    id: 6,
+    word: 'OАбрикос',
+    description: 'Hello World',
+  },
+  {
+    id: 6,
+    word: 'AАбрикос',
+    description: 'Hello World',
+  },
+  {
+    id: 6,
+    word: 'ZАбрикос',
+    description: 'Hello World',
+  },
+  {
+    id: 6,
+    word: 'ЛАбрикос',
+    description: 'Hello World',
+  },
 ];
