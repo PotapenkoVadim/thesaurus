@@ -11,3 +11,4 @@ export {default as WordList} from './WordList/WordList';
 export {default as EmptyText} from './EmptyText/EmptyText';
 export {default as BottomSheet} from './BottomSheet/BottomSheet';
 export {default as Portal} from './Portal/Portal';
+export {default as Spinner} from './Spinner/Spinner';

@@ -18,6 +18,13 @@ pub fn run() {
                     FOREIGN KEY(word_id) REFERENCES words(id),
                     FOREIGN KEY(synonym_id) REFERENCES words(id)
                 );
+            ",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 2,
+            description: "create_synonyms_trigger",
+            sql: "
                 CREATE TRIGGER IF NOT EXISTS delete_word_synonyms
                 AFTER DELETE ON words
                 FOR EACH ROW
