@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "thesaurus",
+  "productName": "Thesaurus",
   "version": "0.1.0",
   "identifier": "com.thesaurus.app",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "thesaurus",
+        "title": "Thesaurus",
         "width": 800,
         "height": 600
       }
