@@ -3,3 +3,5 @@ export interface Word {
   word: string;
   description?: string;
 }
+
+export type FormWord = Pick<Word, 'word' | 'description'>;
