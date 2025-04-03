@@ -18,9 +18,7 @@ const WordList = ({
 
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
-  const moveToWord = () => {
-    setIsOpen(false);
-  }
+  const moveToWord = () => setIsOpen(false);
 
   return (
     <div className={styles['word-list']}> 
@@ -28,7 +26,6 @@ const WordList = ({
           <>
             <div className={styles['word-list__words-container']}>
               {Object.entries(wordsByAbcs)
-                .sort(([a], [b]) => a.localeCompare(b, 'ru'))
                 .map(([letter, words]) => (
                   <div id={letter} key={letter}>
                     <div className={styles['word-list__letter']}>{letter}</div>
@@ -60,7 +57,6 @@ const WordList = ({
         <BottomSheet title="Алфавитный указатель" isOpen={isOpen} onClose={handleClose}>
           <div className={styles['word-list__pointer-list']}>
             {Object.keys(wordsByAbcs)
-              .sort((a, b) => a.localeCompare(b, 'ru'))
               .map(item => (
                 <a
                   onClick={moveToWord}

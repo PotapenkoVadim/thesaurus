@@ -1,4 +1,5 @@
 import { Word } from './interfaces';
+import { SortType } from './types';
 
 export const sortWordsAbcs = (words: Array<Word>) =>
   words.reduce(
@@ -31,3 +32,13 @@ export function throttle<T extends (...args: never[]) => never>(
     }, timeout);
   };
 }
+
+export const sortWords = (words: Array<Word>, sort: SortType) => {
+  return words.sort((a, b) => {
+    if (sort === 'ASC') {
+      return a.word.localeCompare(b.word, 'ru');
+    }
+
+    return b.word.localeCompare(a.word, 'ru');
+  });
+};

@@ -8,7 +8,16 @@ const WordListPage = () => {
   const [isWordFormOpen, setIsWordFormOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const {addWord, error, getWords, searchWord, words, search} = useWords();
+  const {
+    addWord,
+    error,
+    getWords,
+    searchWord,
+    words,
+    search,
+    sort,
+    sortWords
+  } = useWords();
 
   const openWordForm = () => setIsWordFormOpen(true);
   const closeWordForm = () => setIsWordFormOpen(false);
@@ -18,7 +27,7 @@ const WordListPage = () => {
 
   const handleAdd = (value: FormWord) => {
     closeWordForm();
-    addWord(value, search);
+    addWord(value, search, sort);
   };
 
   const handleSearch = (value: string | null) => {
@@ -26,15 +35,13 @@ const WordListPage = () => {
     searchWord(value);
   }
 
-  const onSort = () => console.log('SORT');
-
   useEffect(() => {
-    getWords(search);
-  }, [search]);
+    getWords(search, sort);
+  }, [search, sort]);
 
   return (
     <>
-      {words && <Toolbar onSearch={openSearch} onSort={onSort} onAdd={openWordForm} />}
+      {words && <Toolbar onSearch={openSearch} onSort={sortWords} onAdd={openWordForm} />}
       <div className={styles['word-list-page__container']}>
         {!words && !error && <Spinner className={styles['word-list-page__spinner']} />}
         {words && <WordList words={words} />}
