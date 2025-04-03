@@ -13,3 +13,4 @@ export {default as BottomSheet} from './BottomSheet/BottomSheet';
 export {default as Portal} from './Portal/Portal';
 export {default as Spinner} from './Spinner/Spinner';
 export {default as WordForm} from './WordForm/WordForm';
+export {default as SearchForm} from './SearchForm/SearchForm';

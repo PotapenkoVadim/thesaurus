@@ -1,14 +1,5 @@
-.icon-button {
-  background: none;
-  outline: none;
-  border: none;
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@use '../../assets/mixins.scss' as *;
 
-  &:active,
-  &:hover {
-    color: #9a9a9a;
-  }
+.icon-button {
+  @include button;
 }

@@ -1,0 +1,22 @@
+@mixin button {
+  background: none;
+  outline: none;
+  border: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active,
+  &:hover {
+    color: #9a9a9a;
+  }
+}
+
+@mixin input {
+  border: none;
+  padding: 8px 4px;
+  border-radius: 4px;
+  outline: none;
+  resize: none;
+}

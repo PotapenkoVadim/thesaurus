@@ -1,3 +1,5 @@
+@use '../../assets/mixins.scss' as *;
+
 .word-list {
   display: flex;
   align-items: flex-start;
@@ -28,15 +30,11 @@
   }
 
   &__nav {
+    @include button;
+
     position: sticky;
     top: 16px;
     right: 0;
-    background: none;
-    outline: none;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 8px;
     border: 1px solid #262626;
     
