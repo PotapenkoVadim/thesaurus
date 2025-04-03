@@ -1,67 +1,60 @@
 import { useEffect, useState } from "react";
-import { BottomSheet, Spinner, Toolbar, WordForm, WordList } from "../../components";
-import { FormWord, Word } from "../../interfaces";
-import Database from "@tauri-apps/plugin-sql";
+import { BottomSheet, SearchForm, Spinner, Toolbar, WordForm, WordList } from "../../components";
+import { useWords } from "../../hooks";
+import { FormWord } from "../../interfaces";
 import styles from './WordListPage.module.scss';
 
 const WordListPage = () => {
-  const [words, setWords] = useState<Array<Word> | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [isWordFormOpen, setIsWordFormOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const {addWord, error, getWords, searchWord, words, search} = useWords();
 
-  const openForm = () => setIsOpen(true);
-  const closeForm = () => setIsOpen(false);
+  const openWordForm = () => setIsWordFormOpen(true);
+  const closeWordForm = () => setIsWordFormOpen(false);
 
-  const getWords = async () => {  
-    try {
-      const db = await Database.load("sqlite:mydatabase.db");
-      const dbWords = await db.select<Word[]>("SELECT * FROM words");
+  const openSearch = () => setIsSearchOpen(true);
+  const closeSearch = () => setIsSearchOpen(false);
 
-      setError(null);
-      setWords(dbWords);
-    } catch (error) {
-      console.warn(error);
-      setError("Упс, что-то пошло не так...");
-    }
+  const handleAdd = (value: FormWord) => {
+    closeWordForm();
+    addWord(value, search);
   };
 
-  const addWord = async (word: FormWord) => {
-    try {
-      closeForm();
-      setWords(null);
-      setError(null);
-      const db = await Database.load("sqlite:mydatabase.db");
-      await db.execute("INSERT INTO words (word, description) VALUES ($1, $2)", [
-        word.word,
-        word.description,
-      ]);
-
-      getWords();
-    } catch (error) {
-      console.warn(error);
-      setError("Упс, что-то пошло не так...");
-    }
+  const handleSearch = (value: string | null) => {
+    closeSearch();
+    searchWord(value);
   }
 
-  const onSearch = () => console.log('SEARCH');
   const onSort = () => console.log('SORT');
 
   useEffect(() => {
-    getWords();
-  }, []);
+    getWords(search);
+  }, [search]);
 
   return (
     <>
-      {words && <Toolbar onSearch={onSearch} onSort={onSort} onAdd={openForm} />}
+      {words && <Toolbar onSearch={openSearch} onSort={onSort} onAdd={openWordForm} />}
       <div className={styles['word-list-page__container']}>
         {!words && !error && <Spinner className={styles['word-list-page__spinner']} />}
         {words && <WordList words={words} />}
         {error && <div className={styles['word-list-page__error']}>{error}</div>}
       </div>
 
-      <BottomSheet isOpen={isOpen} title="Добавить новое слово" onClose={closeForm}>
-        <WordForm onSubmit={addWord} />
+      <BottomSheet
+        isOpen={isWordFormOpen}
+        title="Добавить новое слово"
+        onClose={closeWordForm}
+      >
+        <WordForm onSubmit={handleAdd} />
+      </BottomSheet>
+
+      <BottomSheet
+        isOpen={isSearchOpen}
+        onClose={closeSearch}
+        title="Поиск слова"
+      >
+        <SearchForm searchText={search} onSearch={handleSearch} />
       </BottomSheet>
     </>
   );

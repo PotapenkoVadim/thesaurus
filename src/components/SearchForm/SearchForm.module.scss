@@ -1,26 +1,21 @@
 @use '../../assets/mixins.scss' as *;
 
-.form {
-  color: var(--text-color);
+.search-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-
-  &__row {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  gap: 14px;
 
   &__input {
+    width: 100%;
+
     @include input;
   }
 
   &__button {
     @include button;
   }
-  
-  &__buttons {
+
+  &__actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
