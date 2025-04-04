@@ -4,6 +4,7 @@ import { Word } from "../../interfaces";
 import { sortWordsAbcs } from "../../utils";
 import EmptyText from "../EmptyText/EmptyText";
 import BottomSheet from "../BottomSheet/BottomSheet";
+import { APP_PATHS } from "../../constants";
 import styles from './WordList.module.scss';
 
 const WordList = ({
@@ -34,7 +35,7 @@ const WordList = ({
                         <Link
                           className={styles['word-list__link']}
                           key={id}
-                          to={`/word/${id}`}
+                          to={`${APP_PATHS.word}/${id}`}
                         >
                           {word}
                         </Link>
@@ -61,7 +62,7 @@ const WordList = ({
                 <a
                   onClick={moveToWord}
                   key={item}
-                  href={`/?#${item}`}
+                  href={`${APP_PATHS.home}?#${item}`}
                   className={styles['word-list__pointer']}
                 >
                   {item}

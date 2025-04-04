@@ -54,8 +54,13 @@ export const useWordDetails = () => {
     try {
       const db = await Database.load(DB_NAME);
       const dbWord = await db.select<Array<Word>>(`SELECT * FROM words WHERE id = ${id}`);
+      const selectedWord = dbWord[0];
 
-      dispatch({type: 'set-word', payload: dbWord[0]});
+      if (selectedWord === undefined) {
+        throw new Error();
+      }
+
+      dispatch({type: 'set-word', payload: selectedWord});
     } catch (error) {
       console.warn(error);
       dispatch({type: 'set-error', payload: ERROR_TEXT});
