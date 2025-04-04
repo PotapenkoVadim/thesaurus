@@ -2,4 +2,18 @@
   &__container {
     margin-top: 24px;
   }
+
+  &__error {
+    margin-top: 24px;
+    font-size: .8rem;
+    font-weight: 400;
+    color: #a0a0a0;
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
