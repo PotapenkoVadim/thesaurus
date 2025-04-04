@@ -1,3 +1,5 @@
+@use '../../assets/mixins.scss' as *;
+
 .word-page {
   &__container {
     margin-top: 24px;
@@ -15,5 +17,24 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  &__button {
+    @include button;
+  }
+
+  &__delete {
+    color: var(--accent-button);
+  }
+
+  &__actions {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__text {
+    color: var(--text-color);
   }
 }
