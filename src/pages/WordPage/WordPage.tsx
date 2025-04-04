@@ -6,6 +6,7 @@ import styles from './WordPage.module.scss';
 import { synonymsList } from "../../mock";
 import { useWordDetails } from "../../hooks";
 import { useEffect, useState } from "react";
+import { APP_PATHS } from "../../constants";
 
 const WordPage = () => {
   const {id} = useParams();
@@ -24,7 +25,7 @@ const WordPage = () => {
     if (id) {
       deleteWord(id).then(() => {
         closeDelete();
-        navigate('/');
+        navigate(APP_PATHS.home);
       });
     }
   };
@@ -37,7 +38,7 @@ const WordPage = () => {
 
   return (
     <>
-      {word && <WordActions onDelete={openDelete} onEdit={onEdit} />}
+      <WordActions  onDelete={openDelete} onEdit={onEdit} hasWord={Boolean(word)} />
       {!word && !error && <Spinner className={styles['word-page__spinner']} />}
       {error && <div className={styles['word-page__error']}>{error}</div>}
       {word && <WordContainer word={word} className={styles['word-page__container']} />}

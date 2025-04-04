@@ -4,19 +4,23 @@ import styles from './WordActions.module.scss';
 
 const WordActions = ({
   onDelete,
-  onEdit
+  onEdit,
+  hasWord = false
 }: {
   onDelete: () => void;
   onEdit: () => void;
+  hasWord: boolean;
 }) => {
   return (
     <div className={styles['word-actions']}>
       <BackButton />
 
-      <div className={styles['word-actions__sub-container']}>
-        <IconButton icon='edit' onClick={onEdit} />
-        <IconButton icon='delete' onClick={onDelete} />
-      </div>
+      {hasWord && (
+        <div className={styles['word-actions__sub-container']}>
+          <IconButton icon='edit' onClick={onEdit} />
+          <IconButton icon='delete' onClick={onDelete} />
+        </div>
+      )}
     </div>
   );
 }

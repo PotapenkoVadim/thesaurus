@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { Word } from '../../interfaces';
 import EmptyText from '../EmptyText/EmptyText';
+import { APP_PATHS } from '../../constants';
 import styles from './SynonymsList.module.scss';
 
 const SynonymsList = ({
@@ -20,7 +21,7 @@ const SynonymsList = ({
         {hasSynonyms ? synonymsList.map(item => (
           <Link
             className={styles['synonyms-list__item']}
-            to={`/word/${item.id}`}
+            to={`${APP_PATHS.word}/${item.id}`}
             key={item.id}
           >
             {item.word}
