@@ -4,7 +4,7 @@ import styles from './WordPage.module.scss';
 
 // TODO: should remove
 import { synonymsList } from "../../mock";
-import { useWordDetails } from "../../hooks";
+import { useWait, useWordDetails } from "../../hooks";
 import { useEffect, useState } from "react";
 import { APP_PATHS } from "../../constants";
 
@@ -13,6 +13,7 @@ const WordPage = () => {
   const navigate = useNavigate();
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const isMounted = useWait(id);
 
   const {error, getWord, word, deleteWord} = useWordDetails();
 
@@ -36,10 +37,13 @@ const WordPage = () => {
     }
   }, [id]);
 
+  if (!isMounted) {
+    return <Spinner className={styles['word-page__spinner']} />;
+  }
+
   return (
     <>
       <WordActions  onDelete={openDelete} onEdit={onEdit} hasWord={Boolean(word)} />
-      {!word && !error && <Spinner className={styles['word-page__spinner']} />}
       {error && <div className={styles['word-page__error']}>{error}</div>}
       {word && <WordContainer word={word} className={styles['word-page__container']} />}
       {synonymsList && <SynonymsList synonymsList={synonymsList} className={styles['word-page__container']} />}

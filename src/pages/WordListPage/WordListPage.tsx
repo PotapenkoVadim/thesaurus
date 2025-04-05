@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { BottomSheet, SearchForm, Spinner, Toolbar, WordForm, WordList } from "../../components";
-import { useWords } from "../../hooks";
+import { useWait, useWords } from "../../hooks";
 import { FormWord } from "../../interfaces";
 import styles from './WordListPage.module.scss';
 
 const WordListPage = () => {
   const [isWordFormOpen, setIsWordFormOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const isMounted = useWait();
 
   const {
     addWord,
@@ -39,11 +40,14 @@ const WordListPage = () => {
     getWords(search, sort);
   }, [search, sort]);
 
+  if (!isMounted) {
+    return <Spinner className={styles['word-list-page__spinner']} />;
+  }
+
   return (
     <>
       {words && <Toolbar onSearch={openSearch} onSort={sortWords} onAdd={openWordForm} />}
       <div className={styles['word-list-page__container']}>
-        {!words && !error && <Spinner className={styles['word-list-page__spinner']} />}
         {words && <WordList words={words} />}
         {error && <div className={styles['word-list-page__error']}>{error}</div>}
       </div>
