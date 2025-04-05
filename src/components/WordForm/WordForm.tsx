@@ -14,6 +14,7 @@ const WordForm = ({
   const [word, setWord] = useState(editedWord?.word || '');
   const [description, setDescription] = useState(editedWord?.description || '');
   const [showSynonyms, setShowSynonyms] = useState(false);
+  const [search, setSearch] = useState('');
   const [synonymsList, setSynonymsList] = useState<Array<number>>(() => {
     if (editedWord?.synonyms && editedWord.synonyms.length > 0) {
       return editedWord.synonyms.map(item => item.id)
@@ -45,6 +46,20 @@ const WordForm = ({
     }
 
     return [...prev, id]
+  });
+
+  const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setSearch(e.target.value);
+  }
+
+  const synonyms = words?.filter(item => {
+    if (item.id === editedWord?.id) {
+      return false;
+    }
+
+    return search
+      ? item.word.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      : true;
   });
 
   return (
@@ -89,7 +104,15 @@ const WordForm = ({
 
       {showSynonyms && (
         <div className={styles['form__list']}>
-          {words?.filter(item => item.id !== editedWord?.id).map(({id, word}) => (
+          <input
+            type='text'
+            value={search}
+            onChange={handleSearch}
+            className={styles['form__input']}
+            placeholder="Поиск синонима"
+          />
+
+          {synonyms?.map(({id, word}) => (
             <button
               type='button'
               className={`
