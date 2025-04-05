@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
+import { APP_PATHS } from "../../constants";
 import styles from './BackButton.module.scss';
 
 const BackButton = () => {
   const navigate = useNavigate();
 
-  const handleBack = () => navigate(-1);
+  const handleBack = () => navigate(APP_PATHS.home);
 
   return (
     <button
