@@ -39,9 +39,17 @@
     font-size: 1rem;
     color: var(--text-color);
 
+    &:hover {
+      color: var(--text-color);
+    }
+
     &_check {
       color: var(--button-color);
       text-decoration: underline;
+
+      &:hover {
+        color: var(--button-color);
+      }
     }
   }
 }

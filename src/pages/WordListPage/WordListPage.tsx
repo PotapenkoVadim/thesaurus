@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { BottomSheet, SearchForm, Spinner, Toolbar, WordForm, WordList } from "../../components";
-import { useWait, useWords } from "../../hooks";
+import { useScrollToAnchor, useWait, useWords } from "../../hooks";
 import { FormWord } from "../../interfaces";
 import styles from './WordListPage.module.scss';
 
 const WordListPage = () => {
   const [isWordFormOpen, setIsWordFormOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const isMounted = useWait();
+  useScrollToAnchor();
 
   const {
     addWord,
