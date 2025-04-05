@@ -1,5 +1,5 @@
 import { useCallback, useReducer } from "react";
-import { Word } from "../interfaces";
+import { FormWord, Word } from "../interfaces";
 import Database from "@tauri-apps/plugin-sql";
 import { DB_NAME, ERROR_TEXT } from "../constants";
 
@@ -79,9 +79,29 @@ export const useWordDetails = () => {
     }
   }, []);
 
+  const editWord = useCallback(async (value: FormWord, id: string) => {
+    try {
+      const {word, description} = value;
+      const db = await Database.load(DB_NAME);
+      await db.select<Array<Word>>(`UPDATE words SET word = '${word}', description = '${description}' WHERE id = ${id}`);
+      const dbWord = await db.select<Array<Word>>(`SELECT * FROM words WHERE id = ${id}`);
+      const selectedWord = dbWord[0];
+
+      if (selectedWord === undefined) {
+        throw new Error();
+      }
+
+      dispatch({type: 'set-word', payload: selectedWord});
+    } catch (error) {
+      console.warn(error);
+      dispatch({type: 'set-error', payload: ERROR_TEXT});
+    }
+  }, []);
+
   return {
     ...state,
     getWord,
-    deleteWord
+    deleteWord,
+    editWord
   }
 }

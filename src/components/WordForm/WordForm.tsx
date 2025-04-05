@@ -1,14 +1,18 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
-import { FormWord } from "../../interfaces";
+import { FormWord, Word } from "../../interfaces";
 import styles from './WordForm.module.scss';
 
 const WordForm = ({
-  onSubmit
+  onSubmit,
+  words,
+  editedWord
 }: {
   onSubmit: (value: FormWord) => void;
+  words: Array<Word> | null;
+  editedWord?: Word | null
 }) => {
-  const [word, setWord] = useState('');
-  const [description, setDescription] = useState('');
+  const [word, setWord] = useState(editedWord?.word || '');
+  const [description, setDescription] = useState(editedWord?.description || '');
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -23,6 +27,10 @@ const WordForm = ({
 
   const changeDescription: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setDescription(e.target.value);
+  }
+
+  const handleSynonyms = () => {
+    console.log(words);
   }
 
   return (
@@ -52,7 +60,11 @@ const WordForm = ({
       </label>
 
       <div className={styles['form__buttons']}>
-        <button className={styles['form__button']} type='button'>
+        <button
+          onClick={handleSynonyms}
+          className={styles['form__button']}
+          type='button'
+        >
           Добавить синоним
         </button>
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useWait = <T, >(trigger?: T, wait: number = 750) => {
+export const useWait = <T, >(trigger?: T, wait: number = 450) => {
   const [isExisted, setIsExisted] = useState(false);
 
   useEffect(() => {
