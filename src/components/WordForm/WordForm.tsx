@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { FormWord, Word } from "../../interfaces";
+import EmptyText from "../EmptyText/EmptyText";
 import styles from './WordForm.module.scss';
 
 const WordForm = ({
@@ -62,6 +63,8 @@ const WordForm = ({
       : true;
   });
 
+  const hasSynonyms = synonyms && synonyms.length > 0;
+
   return (
     <form className={styles['form']} onSubmit={handleSubmit}>
       <label className={styles['form__row']}>
@@ -104,13 +107,15 @@ const WordForm = ({
 
       {showSynonyms && (
         <div className={styles['form__list']}>
-          <input
-            type='text'
-            value={search}
-            onChange={handleSearch}
-            className={styles['form__input']}
-            placeholder="Поиск синонима"
-          />
+          {hasSynonyms && (
+            <input
+              type='text'
+              value={search}
+              onChange={handleSearch}
+              className={styles['form__input']}
+              placeholder="Поиск синонима"
+            />
+          )}
 
           {synonyms?.map(({id, word}) => (
             <button
@@ -125,6 +130,8 @@ const WordForm = ({
               {word}
             </button>
           ))}
+
+          {!hasSynonyms && <EmptyText text='Список слов пуст' />}
         </div>
       )}
     </form>
