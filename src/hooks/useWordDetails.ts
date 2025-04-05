@@ -1,15 +1,17 @@
 import { useCallback, useReducer } from "react";
 import { FormWord, Word } from "../interfaces";
-import Database from "@tauri-apps/plugin-sql";
-import { DB_NAME, ERROR_TEXT } from "../constants";
+import { ERROR_TEXT } from "../constants";
+import { deleteWordById, selectWordById, selectWords, updateWordById } from "../services";
 
 type WordDetailsActions =
   | {type: 'set-word', payload: Word}
   | {type: 'set-error', payload: string}
-  | {type: 'delete-word'};
+  | {type: 'delete-word'}
+  | {type: 'set-words', payload: Array<Word>};
 
 type WordDetailsState = {
   word: Word | null;
+  words: Array<Word> | null;
   error: string | null;
 }
 
@@ -37,7 +39,14 @@ const wordDetailsReducer = (
         ...state,
         word: null,
         error: null
-      }
+      };
+
+    case 'set-words':
+      return {
+        ...state,
+        error: null,
+        words: action.payload
+      };
 
     default:
       return state;
@@ -48,14 +57,12 @@ export const useWordDetails = () => {
   const [state, dispatch] = useReducer(wordDetailsReducer, {
     word: null,
     error: null,
+    words: null
   });
 
   const getWord = useCallback(async (id: string) => {
     try {
-      const db = await Database.load(DB_NAME);
-      const dbWord = await db.select<Array<Word>>(`SELECT * FROM words WHERE id = ${id}`);
-      const selectedWord = dbWord[0];
-
+      const selectedWord = await selectWordById(id);
       if (selectedWord === undefined) {
         throw new Error();
       }
@@ -67,11 +74,19 @@ export const useWordDetails = () => {
     }
   }, []);
 
+  const getWords = useCallback(async () => {
+    try {
+      const dbWords = await selectWords('');
+      dispatch({type: 'set-words', payload: dbWords});
+    } catch (error) {
+      console.warn(error);
+      dispatch({type: 'set-error', payload: ERROR_TEXT});
+    }
+  }, []);
+
   const deleteWord = useCallback(async (id: string) => {
     try {
-      const db = await Database.load(DB_NAME);
-      await db.select<Array<Word>>(`DELETE FROM words WHERE id = ${id}`);
-
+      await deleteWordById(id)
       dispatch({type: 'delete-word'});
     } catch (error) {
       console.warn(error);
@@ -81,12 +96,8 @@ export const useWordDetails = () => {
 
   const editWord = useCallback(async (value: FormWord, id: string) => {
     try {
-      const {word, description} = value;
-      const db = await Database.load(DB_NAME);
-      await db.select<Array<Word>>(`UPDATE words SET word = '${word}', description = '${description}' WHERE id = ${id}`);
-      const dbWord = await db.select<Array<Word>>(`SELECT * FROM words WHERE id = ${id}`);
-      const selectedWord = dbWord[0];
-
+      await updateWordById(value, id);
+      const selectedWord = await selectWordById(id);
       if (selectedWord === undefined) {
         throw new Error();
       }
@@ -102,6 +113,7 @@ export const useWordDetails = () => {
     ...state,
     getWord,
     deleteWord,
-    editWord
+    editWord,
+    getWords
   }
 }

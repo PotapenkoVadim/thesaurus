@@ -8,10 +8,10 @@ const SynonymsList = ({
   synonymsList,
   className
 }: {
-  synonymsList: Array<Word>;
+  synonymsList?: Array<Word>;
   className?: string;
 }) => {
-  const hasSynonyms = Boolean(synonymsList) && synonymsList.length > 0;
+  const hasSynonyms = synonymsList && synonymsList.length > 0;
 
   return (
     <div className={className}>

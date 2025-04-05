@@ -1,9 +1,9 @@
 import { useCallback, useReducer } from "react";
 import { FormWord, Word } from "../interfaces";
-import { DB_NAME, ERROR_TEXT } from "../constants";
-import Database from "@tauri-apps/plugin-sql";
+import { ERROR_TEXT } from "../constants";
 import { SortType } from "../types";
 import {sortWords as sortWordsUtil} from '../utils';
+import { insertNewWord, selectWords } from "../services";
 
 type WordsActions = 
   | {type: 'set-words', payload: Array<Word>}
@@ -63,9 +63,7 @@ export const useWords = () => {
 
   const getWords = useCallback(async (search: string | null, sort: SortType) => {
     try {
-      const searchText = search ?? '';
-      const db = await Database.load(DB_NAME);
-      const dbWords = await db.select<Word[]>(`SELECT * FROM words WHERE LOWER(word) LIKE LOWER('%${searchText}%')`);
+      const dbWords = await selectWords(search ?? '');
       const sortedWords = sortWordsUtil(dbWords, sort);
 
       dispatch({type: 'set-words', payload: sortedWords});
@@ -77,13 +75,8 @@ export const useWords = () => {
 
   const addWord = useCallback(async (word: FormWord, search: string | null, sort: SortType) => {
     try {
-      const searchText = search ?? '';
-      const db = await Database.load(DB_NAME);
-      await db.execute("INSERT INTO words (word, description) VALUES ($1, $2)", [
-        word.word,
-        word.description,
-      ]);
-      const dbWords = await db.select<Word[]>(`SELECT * FROM words WHERE LOWER(word) LIKE LOWER('%${searchText}%')`);
+      await insertNewWord(word);
+      const dbWords = await selectWords(search ?? '');
       const sortedWords = sortWordsUtil(dbWords, sort);
 
       dispatch({type: 'add-word', payload: sortedWords});
