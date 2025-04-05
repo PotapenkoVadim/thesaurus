@@ -59,14 +59,14 @@ const WordList = ({
           <div className={styles['word-list__pointer-list']}>
             {Object.keys(wordsByAbcs)
               .map(item => (
-                <a
+                <Link
                   onClick={moveToWord}
                   key={item}
-                  href={`${APP_PATHS.home}?#${item}`}
+                  to={`${APP_PATHS.home}?#${item}`}
                   className={styles['word-list__pointer']}
                 >
                   {item}
-                </a>
+                </Link>
             ))}
           </div>
         </BottomSheet>
