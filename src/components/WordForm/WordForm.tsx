@@ -13,10 +13,19 @@ const WordForm = ({
 }) => {
   const [word, setWord] = useState(editedWord?.word || '');
   const [description, setDescription] = useState(editedWord?.description || '');
+  const [showSynonyms, setShowSynonyms] = useState(false);
+  const [synonymsList, setSynonymsList] = useState<Array<number>>(() => {
+    if (editedWord?.synonyms && editedWord.synonyms.length > 0) {
+      return editedWord.synonyms.map(item => item.id)
+    }
+
+    return [];
+  });
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    onSubmit({word, description});
+    const synonymsIds = showSynonyms ? synonymsList : null;
+    onSubmit({word, description, synonymsIds});
     setWord('');
     setDescription('');
   };
@@ -29,9 +38,14 @@ const WordForm = ({
     setDescription(e.target.value);
   }
 
-  const handleSynonyms = () => {
-    console.log(words);
-  }
+  const toggleSynonyms = () => setShowSynonyms(prev => !prev);
+  const addSynonyms = (id: number) => setSynonymsList(prev => {
+    if (prev.includes(id)) {
+      return prev.filter(item => item !== id);
+    }
+
+    return [...prev, id]
+  });
 
   return (
     <form className={styles['form']} onSubmit={handleSubmit}>
@@ -61,7 +75,7 @@ const WordForm = ({
 
       <div className={styles['form__buttons']}>
         <button
-          onClick={handleSynonyms}
+          onClick={toggleSynonyms}
           className={styles['form__button']}
           type='button'
         >
@@ -72,6 +86,24 @@ const WordForm = ({
           Сохранить слово
         </button>
       </div>
+
+      {showSynonyms && (
+        <div className={styles['form__list']}>
+          {words?.filter(item => item.id !== editedWord?.id).map(({id, word}) => (
+            <button
+              type='button'
+              className={`
+                ${styles['form__synonym-btn']}
+                ${synonymsList?.includes(id) ? styles['form__synonym-btn_check'] : ''}
+              `}
+              key={id}
+              onClick={() => addSynonyms(id)}
+            >
+              {word}
+            </button>
+          ))}
+        </div>
+      )}
     </form>
   );
 }

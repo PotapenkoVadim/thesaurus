@@ -7,14 +7,11 @@ import {
   WordContainer,
   WordForm
 } from "../../components";
-import styles from './WordPage.module.scss';
-
-// TODO: should remove
-import { synonymsList } from "../../mock";
 import { useWait, useWordDetails } from "../../hooks";
 import { useEffect, useState } from "react";
 import { APP_PATHS } from "../../constants";
 import { FormWord } from "../../interfaces";
+import styles from './WordPage.module.scss';
 
 const WordPage = () => {
   const {id} = useParams();
@@ -24,7 +21,7 @@ const WordPage = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const isMounted = useWait(id);
 
-  const {error, getWord, word, deleteWord, editWord} = useWordDetails();
+  const {error, getWord, word, words, deleteWord, editWord, getWords} = useWordDetails();
 
   const openDelete = () => setIsDeleteOpen(true);
   const closeDelete = () => setIsDeleteOpen(false);
@@ -55,6 +52,10 @@ const WordPage = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    getWords();
+  }, []);
+
   if (!isMounted) {
     return <Spinner className={styles['word-page__spinner']} />;
   }
@@ -64,7 +65,7 @@ const WordPage = () => {
       <WordActions onDelete={openDelete} onEdit={openEdit} hasWord={Boolean(word)} />
       {error && <div className={styles['word-page__error']}>{error}</div>}
       {word && <WordContainer word={word} className={styles['word-page__container']} />}
-      {synonymsList && <SynonymsList synonymsList={synonymsList} className={styles['word-page__container']} />}
+      {word && <SynonymsList synonymsList={word.synonyms} className={styles['word-page__container']} />}
 
       <BottomSheet
         isOpen={isDeleteOpen}
@@ -98,7 +99,7 @@ const WordPage = () => {
         title="Редактировать"
         onClose={closeEdit}
       >
-        <WordForm onSubmit={handleEdit} words={null} editedWord={word} />
+        <WordForm onSubmit={handleEdit} words={words} editedWord={word} />
       </BottomSheet>
     </>
   );

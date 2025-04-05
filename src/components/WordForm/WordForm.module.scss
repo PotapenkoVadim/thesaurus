@@ -25,4 +25,23 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  &__synonym-btn {
+    @include button;
+
+    font-size: 1rem;
+    color: var(--text-color);
+
+    &_check {
+      color: var(--button-color);
+      text-decoration: underline;
+    }
+  }
 }
