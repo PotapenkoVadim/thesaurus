@@ -54,16 +54,16 @@ const WordListPage = () => {
 
       <BottomSheet
         isOpen={isWordFormOpen}
-        title="Добавить новое слово"
+        title="Добавить"
         onClose={closeWordForm}
       >
-        <WordForm onSubmit={handleAdd} />
+        <WordForm onSubmit={handleAdd} words={words} />
       </BottomSheet>
 
       <BottomSheet
         isOpen={isSearchOpen}
         onClose={closeSearch}
-        title="Поиск слова"
+        title="Поиск"
       >
         <SearchForm searchText={search} onSearch={handleSearch} />
       </BottomSheet>
