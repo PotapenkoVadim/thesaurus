@@ -14,20 +14,17 @@ export const sortWordsAbcs = (words: Array<Word>) =>
     {} as Record<string, Array<Word>>,
   );
 
-export function throttle<T extends (...args: never[]) => never>(
-  callee: T,
+export function throttle<Args extends unknown[], Return>(
+  callee: (...args: Args) => Return,
   timeout: number,
-): (...args: Parameters<T>) => void {
-  let timer: number | null = null;
+): (...args: Args) => void {
+  let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return function perform(...args: Parameters<T>): void {
-    if (timer) {
-      return;
-    }
+  return function perform(...args: Args): void {
+    if (timer) return;
 
     timer = setTimeout(() => {
       callee(...args);
-      clearTimeout(timer!);
       timer = null;
     }, timeout);
   };
