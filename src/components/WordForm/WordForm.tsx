@@ -50,7 +50,7 @@ const WordForm = ({
   return (
     <form className={styles['form']} onSubmit={handleSubmit}>
       <label className={styles['form__row']}>
-        Введите термин:
+        Термин:
         <input
           type='text'
           value={word}
@@ -62,13 +62,13 @@ const WordForm = ({
       </label>
 
       <label className={styles['form__row']}>
-        Введите определение:
+        Определение:
         <textarea
           value={description}
           required
           onChange={changeDescription}
           className={styles['form__input']}
-          placeholder="Введите слово"
+          placeholder="Введите определение"
           rows={5}
         />
       </label>
@@ -83,7 +83,7 @@ const WordForm = ({
         </button>
 
         <button className={styles['form__button']} type='submit'>
-          Сохранить слово
+          Сохранить
         </button>
       </div>
 
