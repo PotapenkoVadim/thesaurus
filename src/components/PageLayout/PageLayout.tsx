@@ -5,8 +5,10 @@ import styles from './PageLayout.module.scss';
 const PageLayout = () => {
   return (
     <main className={styles['page-layout']}>
-      <Header />
-      <Outlet />
+      <div className={styles['page-layout__content']}>
+        <Header />
+        <Outlet />
+      </div>
     </main>
   );
 }
