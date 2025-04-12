@@ -1,4 +1,5 @@
 import { Word } from './interfaces';
+import { Settings } from './interfaces/Settings';
 import { SortType } from './types';
 
 export const sortWordsAbcs = (words: Array<Word>) =>
@@ -38,4 +39,18 @@ export const sortWords = (words: Array<Word>, sort: SortType) => {
 
     return b.word.localeCompare(a.word, 'ru');
   });
+};
+
+export const setSettings = ({ font, theme }: Partial<Settings>) => {
+  document.body.setAttribute('data-theme', theme || 'dark');
+  document.documentElement.setAttribute('data-font', font || 'regular');
+
+  return { font, theme };
+};
+
+export const getSettings = () => {
+  const font = document.documentElement.getAttribute('data-font');
+  const theme = document.body.getAttribute('data-theme');
+
+  return { font, theme };
 };

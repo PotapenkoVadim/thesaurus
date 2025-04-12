@@ -1,18 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-:root {
-  --text-color: #dfdfdf;
-  --background-color: #020202;
-  --button-color: #069 ;
-  --button-hovered: #047;
-}
-
 * {
   padding: 0;
   margin: 0;
   font-family: Montserrat, sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+body[data-theme='dark'] {
+  --text-color: #dfdfdf;
+  --background-color: #020202;
+  --button-color: #069;
+  --button-hovered: #047;
+  --spinner-color: #fff;
+  --spinner-shadow: #FFF2;
+}
+
+body[data-theme='light'] {
+  --text-color: #020202;
+  --background-color: #dfdfdf;
+  --button-color: #047;
+  --button-hovered: #069;
+  --spinner-color: #222;
+  --spinner-shadow: rgba(34, 34, 34, 0.24);
+}
+
+html[data-font='regular'] {
+  font-size: 16px;
+}
+
+html[data-font='small'] {
+  font-size: 14px;
+}
+
+html[data-font='medium'] {
+  font-size: 18px;
+}
+
+html[data-font='huge'] {
+  font-size: 20px;
 }
 
 html, body {

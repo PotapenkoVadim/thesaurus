@@ -49,7 +49,7 @@ const WordListPage = () => {
   return (
     <>
       {words && <Toolbar onSearch={openSearch} onSort={sortWords} onAdd={openWordForm} />}
-      <div className={styles['word-list-page__container']}>
+      <div>
         {words && <WordList words={words} />}
         {error && <div className={styles['word-list-page__error']}>{error}</div>}
       </div>
