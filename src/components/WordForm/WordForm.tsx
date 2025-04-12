@@ -2,6 +2,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { FormWord, Word } from "../../interfaces";
 import EmptyText from "../EmptyText/EmptyText";
 import styles from './WordForm.module.scss';
+import Editor from "../Editor/Editor";
 
 const WordForm = ({
   onSubmit,
@@ -36,8 +37,8 @@ const WordForm = ({
     setWord(e.target.value);
   }
 
-  const changeDescription: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    setDescription(e.target.value);
+  const changeDescription = (value: string) => {
+    setDescription(value);
   }
 
   const toggleSynonyms = () => setShowSynonyms(prev => !prev);
@@ -79,17 +80,14 @@ const WordForm = ({
         />
       </label>
 
-      <label className={styles['form__row']}>
+      <span className={styles['form__row']}>
         Определение:
-        <textarea
+        <Editor
           value={description}
-          required
           onChange={changeDescription}
-          className={styles['form__input']}
-          placeholder="Введите определение"
-          rows={5}
+          placeholder="Введите определение"  
         />
-      </label>
+      </span>
 
       <div className={styles['form__buttons']}>
         <button

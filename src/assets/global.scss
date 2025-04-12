@@ -27,3 +27,31 @@ html, body {
   'GRAD' 0,
   'opsz' 24
 }
+
+#the-editor .ql-toolbar,
+#the-editor .ql-container {
+  border: none;
+}
+
+em {
+  font-style: italic;
+}
+
+blockquote {
+  border-left: 4px solid #ccc;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+
+pre {
+  background-color: #f8f8f2;
+  color: #23241f;
+  overflow: visible;
+  font-family: monospace;
+  padding: 4px 2px;
+}
+
+ol, ul {
+  margin-left: 16px;
+}
