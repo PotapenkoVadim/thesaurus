@@ -13,6 +13,7 @@ const WordForm = ({
   words: Array<Word> | null;
   editedWord?: Word | null
 }) => {
+  const [error, setError] = useState<string | null>(null);
   const [word, setWord] = useState(editedWord?.word || '');
   const [description, setDescription] = useState(editedWord?.description || '');
   const [showSynonyms, setShowSynonyms] = useState(false);
@@ -27,10 +28,17 @@ const WordForm = ({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    const hasDuplicate = words?.findIndex(item => item.word === word);
+    if (hasDuplicate !== -1) {
+      setError(`${word} уже есть в словаре. Введите другое слово.`);
+      return;
+    }
+
     const synonymsIds = showSynonyms ? synonymsList : null;
     onSubmit({word, description, synonymsIds});
     setWord('');
     setDescription('');
+    setError(null);
   };
 
   const changeWord: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -78,6 +86,7 @@ const WordForm = ({
           className={styles['form__input']}
           placeholder="Введите термин"
         />
+        <span className={styles['form__error']}>{error}</span>
       </label>
 
       <span className={styles['form__row']}>
