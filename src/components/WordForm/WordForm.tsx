@@ -29,7 +29,7 @@ const WordForm = ({
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const hasDuplicate = words?.findIndex(item => item.word === word);
-    if (hasDuplicate !== -1) {
+    if (hasDuplicate !== -1 && !editedWord) {
       setError(`${word} уже есть в словаре. Введите другое слово.`);
       return;
     }
