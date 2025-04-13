@@ -1,5 +1,5 @@
 # Thesaurus
-##### Версия: 1.0.0
+##### Версия: 1.1.0
 ##### Платформа: Android
 ##### Технологии:
 - React, Sccs-модули, SQLite
@@ -17,3 +17,5 @@ npm run tauri android build --apk
 #or
 cargo tauri android build --apk
 ```
+### Использование
+- Скачать на [RuStore](https://www.rustore.ru/catalog/app/com.thesaurus.app)
