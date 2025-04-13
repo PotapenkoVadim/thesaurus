@@ -6,6 +6,11 @@
   flex-direction: column;
   gap: 24px;
 
+  &__error {
+    font-size: .84rem;
+    color: #900;
+  }
+
   &__row {
     display: flex;
     flex-direction: column;
@@ -13,7 +18,7 @@
   }
 
   &__input {
-    width: 100%;
+    align-self: stretch;
     
     @include input;
   }

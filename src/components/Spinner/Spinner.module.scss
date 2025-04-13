@@ -2,25 +2,25 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 32px 0 #fff, -32px 0 #fff;
+  background-color: var(--spinner-color);
+  box-shadow: 32px 0 var(--spinner-color), -32px 0 var(--spinner-color);
   position: relative;
   animation: flash 0.5s ease-out infinite alternate;
 }
 
 @keyframes flash {
   0% {
-    background-color: #FFF2;
-    box-shadow: 32px 0 #FFF2, -32px 0 #FFF;
+    background-color: var(--spinner-shadow);
+    box-shadow: 32px 0 var(--spinner-shadow), -32px 0 var(--spinner-color);
   }
 
   50% {
-    background-color: #FFF;
-    box-shadow: 32px 0 #FFF2, -32px 0 #FFF2;
+    background-color: var(--spinner-color);
+    box-shadow: 32px 0 var(--spinner-shadow), -32px 0 var(--spinner-shadow);
   }
 
   100% {
-    background-color: #FFF2;
-    box-shadow: 32px 0 #FFF, -32px 0 #FFF2;
+    background-color: var(--spinner-shadow);
+    box-shadow: 32px 0 var(--spinner-color), -32px 0 var(--spinner-shadow);
   }
 }

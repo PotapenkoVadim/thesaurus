@@ -33,7 +33,56 @@ pub fn run() {
                 END;
             ",
             kind: MigrationKind::Up,
-        }
+        },
+        Migration {
+            version: 3,
+            description: "create_settings",
+            sql: "
+                CREATE TABLE IF NOT EXISTS settings (
+                    id INTEGER PRIMARY KEY,
+                    theme TEXT DEFAULT 'dark',
+                    font INTEGER DEFAULT 16
+                );
+
+                INSERT INTO settings (id, theme, font)
+                VALUES (1, 'dark', 16)
+                ON CONFLICT(id) DO UPDATE SET theme=excluded.theme, font=excluded.font;
+            ",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 4,
+            description: "create_user_settings",
+            sql: "
+                CREATE TABLE IF NOT EXISTS settings (
+                    id INTEGER PRIMARY KEY,
+                    theme TEXT DEFAULT 'dark',
+                    font TEXT DEFAULT 'regular'
+                );
+
+                INSERT INTO settings (id, theme, font)
+                VALUES (1, 'dark', 'regular')
+                ON CONFLICT(id) DO UPDATE SET theme=excluded.theme, font=excluded.font;
+                DROP TABLE settings;
+            ",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 5,
+            description: "create_user_settings_1",
+            sql: "
+                CREATE TABLE IF NOT EXISTS user_settings (
+                    id INTEGER PRIMARY KEY,
+                    theme TEXT DEFAULT 'dark',
+                    font TEXT DEFAULT 'regular'
+                );
+
+                INSERT INTO user_settings (id, theme, font)
+                VALUES (1, 'dark', 'regular')
+                ON CONFLICT(id) DO UPDATE SET theme=excluded.theme, font=excluded.font;
+            ",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()

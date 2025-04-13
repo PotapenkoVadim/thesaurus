@@ -2,6 +2,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { FormWord, Word } from "../../interfaces";
 import EmptyText from "../EmptyText/EmptyText";
 import styles from './WordForm.module.scss';
+import Editor from "../Editor/Editor";
 
 const WordForm = ({
   onSubmit,
@@ -12,6 +13,7 @@ const WordForm = ({
   words: Array<Word> | null;
   editedWord?: Word | null
 }) => {
+  const [error, setError] = useState<string | null>(null);
   const [word, setWord] = useState(editedWord?.word || '');
   const [description, setDescription] = useState(editedWord?.description || '');
   const [showSynonyms, setShowSynonyms] = useState(false);
@@ -26,18 +28,25 @@ const WordForm = ({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    const hasDuplicate = words?.findIndex(item => item.word === word);
+    if (hasDuplicate !== -1 && !editedWord) {
+      setError(`${word} уже есть в словаре. Введите другое слово.`);
+      return;
+    }
+
     const synonymsIds = showSynonyms ? synonymsList : null;
     onSubmit({word, description, synonymsIds});
     setWord('');
     setDescription('');
+    setError(null);
   };
 
   const changeWord: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWord(e.target.value);
   }
 
-  const changeDescription: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    setDescription(e.target.value);
+  const changeDescription = (value: string) => {
+    setDescription(value);
   }
 
   const toggleSynonyms = () => setShowSynonyms(prev => !prev);
@@ -77,19 +86,17 @@ const WordForm = ({
           className={styles['form__input']}
           placeholder="Введите термин"
         />
+        <span className={styles['form__error']}>{error}</span>
       </label>
 
-      <label className={styles['form__row']}>
+      <span className={styles['form__row']}>
         Определение:
-        <textarea
+        <Editor
           value={description}
-          required
           onChange={changeDescription}
-          className={styles['form__input']}
-          placeholder="Введите определение"
-          rows={5}
+          placeholder="Введите определение"  
         />
-      </label>
+      </span>
 
       <div className={styles['form__buttons']}>
         <button

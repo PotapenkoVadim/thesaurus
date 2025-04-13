@@ -5,6 +5,7 @@
   align-items: flex-start;
   position: relative;
   height: 100%;
+  padding: 14px 0;
 
   &__words-container {
     flex: 7;
@@ -60,6 +61,6 @@
     border: none;
     padding: 6px 4px;
     font-size: 1.2rem;
-    color: #e0e0e0;
+    color: var(--text-color);
   }
 }

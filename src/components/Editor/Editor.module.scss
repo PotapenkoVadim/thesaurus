@@ -1,0 +1,21 @@
+@use '../../assets/mixins.scss' as *;
+
+.editor {
+  &__toolbar {
+    border-radius: 4px 4px 0 0;
+    background-color: #f0f0f0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 6px 0;
+    justify-items: center;
+  }
+
+  &__field {
+    @include input;
+
+    border-radius: 0 0 4px 4px;
+    background-color: #fff;
+    color: #000;
+  }
+}

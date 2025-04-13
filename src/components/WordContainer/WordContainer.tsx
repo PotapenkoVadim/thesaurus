@@ -13,7 +13,10 @@ const WordContainer = ({
   return (
     <div className={className}>
       <div className={styles['word-container__word']}>{definition}</div>
-      <div className={styles['word-container__description']}>{description}</div>
+      <div
+        dangerouslySetInnerHTML={{__html: description || ''}}
+        className={styles['word-container__description']}
+      />
     </div>
   );
 };
